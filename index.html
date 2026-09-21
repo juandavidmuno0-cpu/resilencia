@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resiliencia: El Viaje de la Fortaleza Interior</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aquaCustom: '#6FFFE9',
+                        aquaDark: '#12a38b',
+                        deepTeal: '#114B42',
+                        greenCustom: '#A7C957',
+                        greenDark: '#5c7818',
+                        goldCustom: '#D4AF37',
+                        goldDark: '#AA7C11',
+                        brandBg: '#F4F8F7',
+                        brandSurface: '#FFFFFF',
+                        brandText: '#132A26',
+                        brandMuted: '#4A605C'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['Cinzel', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-hero {
+            background: linear-gradient(135deg, #114B42 0%, #12a38b 50%, #A7C957 100%);
+        }
+        .diploma-border {
+            border: 8px double #D4AF37;
+        }
+        .card-glow:hover {
+            box-shadow: 0 20px 30px -10px rgba(18, 163, 139, 0.2);
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
+        }
+        .diploma-glow {
+            animation: pulseGlow 3s infinite;
+        }
+    </style>
+</head>
+<body class="bg-brandBg text-brandText font-sans antialiased min-h-screen flex flex-col relative">
+
+    <div id="welcomeOverlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-deepTeal/95 backdrop-blur-md transition-opacity duration-500">
+        <div class="bg-white rounded-3xl p-6 sm:p-10 max-w-lg w-full shadow-2xl text-center border-4 border-aquaCustom/40 relative overflow-hidden">
+            <div class="w-20 h-20 bg-gradient-to-tr from-deepTeal to-greenCustom rounded-3xl mx-auto flex items-center justify-center text-white text-3xl shadow-lg mb-6 transform hover:rotate-6 transition-transform">
+                <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            
+            <span class="text-xs font-bold uppercase tracking-widest text-aquaDark">Plataforma Interactiva de Desarrollo Emocional</span>
+            <h1 class="text-3xl font-extrabold text-brandText mt-1 mb-3">El Camino de la Resiliencia</h1>
+            <p class="text-sm text-brandMuted leading-relaxed mb-6">
+                Ingresa tu nombre o apodo para registrar tu progreso, tomar decisiones en vivo y recibir tu <strong>Diploma de Fortaleza</strong> con tu puntaje final.
+            </p>
+
+            <form onsubmit="startGameWithPlayer(event)" class="space-y-4">
+                <div>
+                    <label for="playerNameInput" class="block text-xs font-bold text-deepTeal uppercase mb-2">Tu Nombre de Jugador/a</label>
+                    <input type="text" id="playerNameInput" placeholder="Escribe tu nombre aquí..." required maxlength="25" class="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 text-center font-bold text-lg text-brandText focus:outline-none focus:border-aquaDark focus:ring-2 focus:ring-aquaCustom transition-all shadow-inner">
+                </div>
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-deepTeal via-aquaDark to-greenCustom text-white font-extrabold rounded-2xl text-base shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    Iniciar Experiencia <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-deepTeal to-greenCustom flex items-center justify-center text-white shadow-md">
+                        <i class="fa-solid fa-seedling text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight text-brandText block leading-none">Resiliencia</span>
+                        <span class="text-xs text-aquaDark font-semibold uppercase tracking-wider" id="navGreeting">Modo Explorador</span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-8 font-medium text-sm">
+                    <a href="#definicion" class="hover:text-aquaDark transition-colors">¿Qué es?</a>
+                    <a href="#galeria" class="hover:text-aquaDark transition-colors">Pilares Visuales</a>
+                    <a href="#juego" class="hover:text-aquaDark transition-colors">Juego Interactivo</a>
+                    <a href="#familia" class="hover:text-aquaDark transition-colors">Guía Familiar</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-brandBg border border-aquaDark/30 text-xs font-bold text-deepTeal">
+                        <i class="fa-solid fa-user text-aquaDark"></i>
+                        <span id="userBadge">Jugador: Invitado</span>
+                    </div>
+                    <a href="#juego" class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-xl text-brandText bg-aquaCustom hover:bg-opacity-80 transition-all shadow-sm">
+                        <i class="fa-solid fa-gamepad mr-2"></i> Jugar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="definicion" class="gradient-hero text-white py-16 md:py-24 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold uppercase tracking-widest text-white mb-4">
+                        Desarrollo Personal y Emocional
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+                        ¡Bienvenido/a, <span id="heroPlayerName" class="text-aquaCustom underline decoration-wavy">Explorador/a</span>!
+                    </h1>
+                    <p class="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl font-light leading-relaxed">
+                        La resiliencia no es la ausencia de dificultades, sino la capacidad de reconstruirnos a través de ellas. Explora nuestros pilares educativos y pon a prueba tu carácter en el dilema interactivo.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#juego" class="px-8 py-4 bg-white text-deepTeal font-bold rounded-2xl hover:bg-gray-100 transition-all text-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            Ir al Juego de <span class="gamePlayerFirstName">ti</span>
+                        </a>
+                        <a href="#galeria" class="px-8 py-4 bg-black/20 hover:bg-black/30 backdrop-blur-md text-white font-semibold rounded-2xl transition-all text-center border border-white/20">
+                            Explorar Galería
+                        </a>
+                    </div>
+                </div>
+                <div class="relative flex justify-center">
+                    <div class="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img src="Gemini_Generated_Image_38fi2b38fi2b38fi.jpg" alt="Perseverancia Personal" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/12a38b/FFFFFF?text=Perseverancia+y+Monta%C3%B1a'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs font-semibold uppercase text-aquaCustom mb-1">Perseverancia Personal</span>
+                            <h3 class="text-xl font-bold">Superación de Obstáculos</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="py-16 bg-brandBg border-t border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-deepTeal">Pilares Visuales e Interactivos</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brandText mt-1">Imágenes y Conceptos de Resiliencia</h2>
+                <p class="text-brandMuted mt-2 max-w-2xl mx-auto">Haz clic en cualquier tarjeta para abrir la definición extendida y lecciones clave para <span class="gamePlayerFirstName">ti</span>.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Imagen 2 Card -->
+                <div onclick="openGalleryModal(1)" class="bg-white rounded-3xl overflow-hidden shadow-md card-glow transition-all duration-300 flex flex-col border border-gray-100 cursor-pointer group">
+                    <div class="relative h-64 overflow-hidden bg-gray-100">
+                        <img src="imagen 2.png" alt="Superación y Apoyo Mutuo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/6FFFE9/12a38b?text=Resiliencia+Infantil'">
+                        <span class="absolute top-4 right-4 bg-aquaCustom text-brandText text-xs font-extrabold px-3 py-1 rounded-full uppercase shadow">Niñez y Trabajo en Equipo</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-extrabold text-brandText mb-2 group-hover:text-aquaDark transition-colors">Superación y Apoyo Mutuo</h3>
+                            <p class="text-sm text-brandMuted leading-relaxed mb-4">
+                                Trabajo en equipo en la infancia. Muestra cómo ayudarse ante caídas transforma la tormenta en fortaleza compartida.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center text-xs font-bold text-aquaDark">
+                            <span><i class="fa-solid fa-heart mr-1"></i> Ver Definición Ampliada</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagen 3 Card -->
+                <div onclick="openGalleryModal(2)" class="bg-white rounded-3xl overflow-hidden shadow-md card-glow transition-all duration-300 flex flex-col border border-gray-100 cursor-pointer group">
+                    <div class="relative h-64 overflow-hidden bg-gray-100">
+                        <img src="imagen 3 .png" alt="Empatía y Palabras de Aliento" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/A7C957/ffffff?text=Dialogo+Positivo'">
+                        <span class="absolute top-4 right-4 bg-greenCustom text-brandText text-xs font-extrabold px-3 py-1 rounded-full uppercase shadow">Solidaridad Escolar</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-extrabold text-brandText mb-2 group-hover:text-greenDark transition-colors">Empatía y Diálogo Positivo</h3>
+                            <p class="text-sm text-brandMuted leading-relaxed mb-4">
+                                El valor de las palabras amables para reconstruir la confianza en momentos difíciles escolares y cotidianos.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center text-xs font-bold text-greenDark">
+                            <span><i class="fa-solid fa-comment-dots mr-1"></i> Ver Definición Ampliada</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gemini Image Card -->
+                <div onclick="openGalleryModal(3)" class="bg-white rounded-3xl overflow-hidden shadow-md card-glow transition-all duration-300 flex flex-col border border-gray-100 cursor-pointer group">
+                    <div class="relative h-64 overflow-hidden bg-gray-100">
+                        <img src="Gemini_Generated_Image_38fi2b38fi2b38fi.jpg" alt="Perseverancia Personal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/12a38b/ffffff?text=Superacion+de+Montanas'">
+                        <span class="absolute top-4 right-4 bg-deepTeal text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase shadow">Vida Adulta</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-extrabold text-brandText mb-2 group-hover:text-deepTeal transition-colors">Perseverancia en Obstáculos</h3>
+                            <p class="text-sm text-brandMuted leading-relaxed mb-4">
+                                Enfrentar retos de gran escala con paciencia, paso a paso, hasta alcanzar la cima por encima de las dificultades.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center text-xs font-bold text-deepTeal">
+                            <span><i class="fa-solid fa-mountain mr-1"></i> Ver Definición Ampliada</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="galleryModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl relative overflow-hidden border border-gray-100">
+            <button onclick="closeGalleryModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <span id="modalBadge" class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-aquaCustom/30 text-aquaDark">Pilar</span>
+            </div>
+
+            <h3 id="modalTitle" class="text-2xl font-extrabold text-brandText mb-4">Título Pilar</h3>
+            
+            <div class="h-56 rounded-2xl overflow-hidden mb-4 bg-gray-100">
+                <img id="modalImage" src="" alt="Imagen Pilar" class="w-full h-full object-cover">
+            </div>
+
+            <div id="modalContent" class="space-y-3 text-sm text-brandMuted leading-relaxed">
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+                <button onclick="closeGalleryModal()" class="px-6 py-2.5 bg-brandText text-white rounded-xl text-xs font-bold hover:bg-black transition-colors">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <section id="juego" class="py-16 bg-white relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="px-4 py-1.5 rounded-full bg-aquaCustom/30 text-deepTeal text-xs font-bold uppercase tracking-wider">Misión de Toma de Decisiones</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brandText mt-2">El Camino de la Resiliencia de <span id="gameTitlePlayerName" class="text-aquaDark">Explorador/a</span></h2>
+                <p class="text-brandMuted mt-2">Navega dilemas reales de la vida, cuida tu medidor de fortaleza y toma decisiones sabias.</p>
+            </div>
+
+            <!-- Game Card Frame -->
+            <div class="bg-brandBg border-2 border-gray-200 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden" id="gameWindow">
+                
+                <!-- Game Header & Score Bar -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pb-6 border-b border-gray-200 mb-6">
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <span class="w-10 h-10 rounded-2xl bg-deepTeal text-white flex items-center justify-center font-bold text-lg shadow-md" id="stageIndicator">1</span>
+                        <div>
+                            <h4 class="font-bold text-sm text-brandText" id="stageTitle">Etapa 1: Desafío Escolar</h4>
+                            <p class="text-xs text-brandMuted">Jugador/a activo/a: <strong id="gameActivePlayer" class="text-deepTeal">Invitado</strong></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 w-full sm:w-auto justify-end">
+                        <div class="text-right">
+                            <span class="text-xs uppercase font-bold text-brandMuted block">Puntos de Fortaleza</span>
+                            <span class="text-2xl font-black text-aquaDark" id="scoreDisplay">50 PTS</span>
+                        </div>
+                        <button onclick="resetGame()" class="p-2.5 rounded-xl bg-gray-200 hover:bg-gray-300 text-brandText transition-colors" title="Reiniciar juego">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 h-3 rounded-full mb-8 overflow-hidden">
+                    <div id="progressBar" class="bg-gradient-to-r from-deepTeal via-aquaDark to-greenCustom h-full w-1/4 transition-all duration-500 rounded-full"></div>
+                </div>
+
+                <!-- Game Screen Dynamic Content -->
+                <div id="gameScreen">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-6 items-center">
+                        <div class="md:col-span-5 h-52 rounded-2xl overflow-hidden relative shadow border border-gray-100">
+                            <img id="gameImage" src="imagen 2.png" alt="Escenario de Resiliencia" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:col-span-7">
+                            <h3 class="text-xl font-bold text-brandText mb-3" id="scenarioHeading">Cargando escenario...</h3>
+                            <p class="text-sm text-brandMuted leading-relaxed" id="scenarioDescription">
+                                Descripción del dilema interactivo...
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Options Container -->
+                    <div class="space-y-3" id="optionsContainer">
+                    </div>
+
+                    <!-- Feedback Box -->
+                    <div id="feedbackBox" class="hidden mt-6 p-5 rounded-2xl border transition-all">
+                        <div class="flex items-start gap-3">
+                            <i id="feedbackIcon" class="fa-solid fa-circle-info text-2xl mt-0.5"></i>
+                            <div>
+                                <h5 class="font-bold text-sm mb-1" id="feedbackTitle">Resultado</h5>
+                                <p class="text-xs sm:text-sm leading-relaxed" id="feedbackText"></p>
+                                <button onclick="nextStage()" class="mt-4 px-5 py-2.5 bg-deepTeal text-white rounded-xl text-xs font-bold hover:bg-black transition-colors inline-flex items-center gap-2">
+                                    Siguiente Desafío <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="familia" class="py-16 bg-brandBg border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-deepTeal">Acompañamiento Socioemocional</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-brandText mt-1 mb-6">Guía de Escucha y Fortaleza Familiar</h2>
+                    <p class="text-brandMuted leading-relaxed mb-6">
+                        La resiliencia de niños y adolescentes se cultiva en un entorno donde se valida la emoción antes de corregir el error.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
+                            <div class="w-10 h-10 rounded-full bg-aquaCustom/30 text-deepTeal flex items-center justify-center font-bold shrink-0">1</div>
+                            <div>
+                                <h4 class="font-bold text-brandText">Validar la Emoción</h4>
+                                <p class="text-xs text-brandMuted">Evita decir "no es para tanto". Usa "Entiendo que estés triste/frustrado/a, estoy aquí contigo".</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
+                            <div class="w-10 h-10 rounded-full bg-greenCustom/30 text-greenDark flex items-center justify-center font-bold shrink-0">2</div>
+                            <div>
+                                <h4 class="font-bold text-brandText">Valorar el Esfuerzo Continuo</h4>
+                                <p class="text-xs text-brandMuted">Premia la constancia y el intento, no solo la meta lograda.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reflection Dynamic Card -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
+                    <h3 class="text-2xl font-bold text-brandText mb-2">Diálogo Positivo para <span class="gamePlayerFirstName">ti</span></h3>
+                    <p class="text-sm text-brandMuted mb-6">Escribe un desafío reciente y tu nueva frase de empoderamiento:</p>
+
+                    <form onsubmit="handleReflection(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-brandText uppercase mb-1">Tu Reto Actual</label>
+                            <input type="text" id="userInputChallenge" placeholder="Ej: Me cuesta hablar en público..." required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-aquaDark">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-brandText uppercase mb-1">Frase de Fortaleza Resiliente</label>
+                            <input type="text" id="userInputPositive" placeholder="Ej: Con práctica constante voy a mejorar paso a paso..." required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-greenDark">
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-deepTeal to-aquaDark text-white font-bold rounded-xl text-sm shadow hover:opacity-95 transition-all">
+                            Guardar Compromiso Resiliente
+                        </button>
+                    </form>
+
+                    <div id="reflectionOutput" class="hidden mt-6 p-4 rounded-2xl bg-brandBg border border-emerald-200">
+                        <span class="text-xs font-bold uppercase text-emerald-700 block mb-1">¡Compromiso Guardado!</span>
+                        <p class="text-sm text-brandText italic" id="savedReflectionText"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brandText text-white py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-gray-800 pb-8 mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-aquaCustom flex items-center justify-center text-brandText font-bold">
+                        <i class="fa-solid fa-seedling text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">Resiliencia Interactiva</span>
+                </div>
+                <div class="text-xs text-gray-400">
+                    Diseñado para fomentar la empatía, superación y fuerza emocional.
+                </div>
+            </div>
+            <div class="text-center text-xs text-gray-400">
+                &copy; 2026 Portal Educativo de Resiliencia.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global Game State
+        let playerName = "Explorador/a";
+        let currentStageIndex = 0;
+        let score = 50;
+        const initialScore = 50;
+
+        // Modal Data
+        const galleryDetails = {
+            1: {
+                title: "Superación, Trabajo en Equipo y Apoyo Mutuo",
+                badge: "Pilar 1: Niñez y Comunidad",
+                badgeColor: "bg-aquaCustom/30 text-aquaDark",
+                image: "imagen 2.png",
+                content: `
+                    <p><strong>El poder del trabajo en equipo:</strong> Muestra cómo los niños se ayudan entre sí a levantar el ánimo y recuperarse de caídas o tropiezos durante el juego.</p>
+                    <p class="mt-2"><strong>Principio Clave:</strong> Ningún desafío se enfrenta en soledad. Cuando brindamos una mano solidaria, transformamos los errores en momentos de unión y aprendizaje socioemocional.</p>
+                `
+            },
+            2: {
+                title: "Empatía, Diálogo Positivo y Solidaridad Escolar",
+                badge: "Pilar 2: Entorno Escolar",
+                badgeColor: "bg-greenCustom/30 text-greenDark",
+                image: "imagen 3 .png",
+                content: `
+                    <p><strong>El impacto de las palabras de aliento:</strong> Las frases como <em>"¡No te preocupes!", "¡Vamos, tú puedes!"</em> fortalecen el diálogo interno y desarman la frustración ante dificultades académicas.</p>
+                    <p class="mt-2"><strong>Principio Clave:</strong> La empatía escolar reconstruye la confianza propia cuando alguien atraviesa un mal momento. Hablar bien de nosotros y apoyar a otros genera resiliencia colectiva.</p>
+                `
+            },
+            3: {
+                title: "Perseverancia, Superación de Obstáculos y Vida Adulta",
+                badge: "Pilar 3: Proyectos de Vida",
+                badgeColor: "bg-deepTeal/20 text-deepTeal",
+                image: "Gemini_Generated_Image_38fi2b38fi2b38fi.jpg",
+                content: `
+                    <p><strong>Ascendiendo grandes montañas:</strong> Representa los retos complejos que surgen en la vida adulta (metas a largo plazo, imprevistos y momentos de incertidumbre).</p>
+                    <p class="mt-2"><strong>Principio Clave:</strong> La perseverancia no exige correr rápido, sino avanzar paso a paso con constancia y paciencia, manteniendo la vista fija en la cima a pesar de la niebla.</p>
+                `
+            }
+        };
+
+        // Stages Data
+        const stages = [
+            {
+                indicator: "1",
+                title: "Etapa 1: Desafío Escolar y Apoyo",
+                image: "imagen 2.png",
+                heading: "Tropiezo en la Carrera de Relevos",
+                getScenario: (name) => `Hola ${name}. Durante la clase de educación física, tu equipo va ganando, pero tu compañero tropieza y cae justo antes de la meta, perdiendo la ventaja. Está avergonzado y triste. ¿Qué haces?`,
+                getOptions: (name) => [
+                    {
+                        text: `Corres hacia tu compañero, lo ayudas a levantarse y le dices: "¡Buen intento, ${name} y todo el equipo estamos orgullosos de tu esfuerzo!"`,
+                        points: 30,
+                        feedbackTitle: "¡Excelente Apoyo Mutuo!",
+                        feedbackText: "Priorizar la empatía sobre la victoria refuerza la autoestima del grupo. Levantarse juntos crea la verdadera resiliencia.",
+                        isPositive: true
+                    },
+                    {
+                        text: "Te molestas en silencio y te vas al vestidor sin decir nada.",
+                        points: -10,
+                        feedbackTitle: "Reacción Fría",
+                        feedbackText: "Retirar el apoyo ante un error ajeno genera inseguridad. La fortaleza reside en respaldarse mutuamente.",
+                        isPositive: false
+                    },
+                    {
+                        text: "Le reclamas en voz alta delante de todos por haber tropezado.",
+                        points: -20,
+                        feedbackTitle: "Impacto Negativo",
+                        feedbackText: "El reclamo destruye la autoconfianza y frena la capacidad de superar los contratiempos.",
+                        isPositive: false
+                    }
+                ]
+            },
+            {
+                indicator: "2",
+                title: "Etapa 2: Gestión de la Frustración",
+                image: "imagen 3 .png",
+                heading: "La Calificación Inesperada",
+                getScenario: (name) => `${name}, estudiaste mucho para un examen importante, pero obtienes una calificación menor a la esperada. Te sientes muy frustrado/a. Tu mejor amigo/a te observa preocupado/a. ¿Cómo reaccionas?`,
+                getOptions: (name) => [
+                    {
+                        text: `Respiras profundo y le dices a tu amigo: "Me duele el resultado, pero revisaré mis errores con calma para mejorar la próxima vez."`,
+                        points: 35,
+                        feedbackTitle: "¡Diálogo Positivo Ejemplar!",
+                        feedbackText: "Transformar la frustración en aprendizaje es la clave de la madurez emocional. Usar un lenguaje constructivo te impulsa hacia adelante.",
+                        isPositive: true
+                    },
+                    {
+                        text: "Rompes la hoja del examen y dices que la materia no sirve para nada.",
+                        points: -20,
+                        feedbackTitle: "Reacción de Frustración",
+                        feedbackText: "Rendirse o destruir el trabajo impide el crecimiento. La resiliencia nos invita a pausar y replantear la estrategia.",
+                        isPositive: false
+                    },
+                    {
+                        text: "Culpas al profesor diciendo que tiene algo personal en tu contra.",
+                        points: -10,
+                        feedbackTitle: "Evasión de Responsabilidad",
+                        feedbackText: "Culpar a factores externos te resta el control sobre tu propio progreso personal.",
+                        isPositive: false
+                    }
+                ]
+            },
+            {
+                indicator: "3",
+                title: "Etapa 3: Adaptación a Cambios Grandes",
+                image: "Gemini_Generated_Image_38fi2b38fi2b38fi.jpg",
+                heading: "Superación del Gran Proyecto",
+                getScenario: (name) => `${name}, debes liderar un proyecto escolar o laboral exigente. A mitad de camino, cambian las instrucciones por completo y parece una montaña imposible de escalar. ¿Cuál es tu plan?`,
+                getOptions: (name) => [
+                    {
+                        text: "Divido el nuevo reto en metas diarias pequeñas, pido consejo y avanzo con paciencia un paso a la vez.",
+                        points: 35,
+                        feedbackTitle: "¡Perseverancia de Cima!",
+                        feedbackText: "Adaptarse al cambio y perseverar con disciplina te llevará a la cima, superando cualquier tormenta.",
+                        isPositive: true
+                    },
+                    {
+                        text: "Renuncio inmediatamente al proyecto porque prefiero evitar la presión.",
+                        points: -15,
+                        feedbackTitle: "Renuncia Ante el Cambio",
+                        feedbackText: "Evitar los retos nos priva de descubrir nuestro verdadero potencial de adaptación.",
+                        isPositive: false
+                    },
+                    {
+                        text: "Dejas todo para la última noche esperando un milagro.",
+                        points: -10,
+                        feedbackTitle: "Improvisación Riesgosa",
+                        feedbackText: "La acumulación de estrés dificulta responder con serenidad ante las dificultades.",
+                        isPositive: false
+                    }
+                ]
+            }
+        ];
+
+        function startGameWithPlayer(e) {
+            e.preventDefault();
+            const input = document.getElementById('playerNameInput').value.trim();
+            if (input.length > 0) {
+                playerName = input;
+            } else {
+                playerName = "Explorador/a";
+            }
+
+            // Hide initial modal
+            const overlay = document.getElementById('welcomeOverlay');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+
+            updatePlayerNameUI();
+            renderStage();
+        }
+
+        function updatePlayerNameUI() {
+            const firstName = playerName.split(' ')[0];
+
+            document.getElementById('navGreeting').innerText = `¡Hola, ${firstName}!`;
+            document.getElementById('userBadge').innerText = `Jugador: ${playerName}`;
+            document.getElementById('heroPlayerName').innerText = playerName;
+            document.getElementById('gameTitlePlayerName').innerText = playerName;
+            document.getElementById('gameActivePlayer').innerText = playerName;
+
+            document.querySelectorAll('.gamePlayerFirstName').forEach(el => {
+                el.innerText = firstName;
+            });
+        }
+
+        function openGalleryModal(id) {
+            const data = galleryDetails[id];
+            if (!data) return;
+
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalBadge').innerText = data.badge;
+            document.getElementById('modalBadge').className = `px-3 py-1 rounded-full text-xs font-bold uppercase ${data.badgeColor}`;
+            document.getElementById('modalImage').src = data.image;
+            document.getElementById('modalContent').innerHTML = data.content;
+
+            document.getElementById('galleryModal').classList.remove('hidden');
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.add('hidden');
+        }
+
+        function renderStage() {
+            const currentStage = stages[currentStageIndex];
+            
+            document.getElementById('stageIndicator').innerText = currentStage.indicator;
+            document.getElementById('stageTitle').innerText = currentStage.title;
+            document.getElementById('gameImage').src = currentStage.image;
+            document.getElementById('scenarioHeading').innerText = currentStage.heading;
+            document.getElementById('scenarioDescription').innerText = currentStage.getScenario(playerName);
+            
+            const progressPercent = ((currentStageIndex + 1) / stages.length) * 100;
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+
+            document.getElementById('feedbackBox').classList.add('hidden');
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            const currentOptions = currentStage.getOptions(playerName);
+
+            currentOptions.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-2xl border border-gray-200 bg-white hover:bg-emerald-50/60 hover:border-aquaDark transition-all text-xs sm:text-sm font-medium flex items-center justify-between group shadow-sm";
+                btn.innerHTML = `
+                    <span class="pr-2">${option.text}</span>
+                    <i class="fa-solid fa-chevron-right text-gray-400 group-hover:text-aquaDark transition-colors"></i>
+                `;
+                btn.onclick = () => selectOption(index);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(optionIndex) {
+            const currentStage = stages[currentStageIndex];
+            const selectedOption = currentStage.getOptions(playerName)[optionIndex];
+
+            score += selectedOption.points;
+            if (score < 0) score = 0;
+            document.getElementById('scoreDisplay').innerText = score + ' PTS';
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            Array.from(optionsContainer.children).forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            });
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackText = document.getElementById('feedbackText');
+
+            feedbackTitle.innerText = `${selectedOption.feedbackTitle} (${selectedOption.points >= 0 ? '+' : ''}${selectedOption.points} pts)`;
+            feedbackText.innerText = selectedOption.feedbackText;
+
+            if (selectedOption.isPositive) {
+                feedbackBox.className = "mt-6 p-5 rounded-2xl border bg-emerald-50 border-emerald-200 text-emerald-900";
+                feedbackIcon.className = "fa-solid fa-circle-check text-2xl text-emerald-600 mt-0.5";
+            } else {
+                feedbackBox.className = "mt-6 p-5 rounded-2xl border bg-amber-50 border-amber-200 text-amber-900";
+                feedbackIcon.className = "fa-solid fa-triangle-exclamation text-2xl text-amber-600 mt-0.5";
+            }
+
+            feedbackBox.classList.remove('hidden');
+        }
+
+        function nextStage() {
+            if (currentStageIndex < stages.length - 1) {
+                currentStageIndex++;
+                renderStage();
+            } else {
+                showFinalSummary();
+            }
+        }
+
+        function showFinalSummary() {
+            const gameScreen = document.getElementById('gameScreen');
+            document.getElementById('stageTitle').innerText = "¡Misión Completada!";
+            document.getElementById('progressBar').style.width = '100%';
+
+            let badgeTitle = "";
+            let categoryIcon = "";
+            let medalBg = "";
+            let message = "";
+            
+            // Score categorization logic
+            if (score >= 120) {
+                badgeTitle = "MAESTRO/A DE LA RESILIENCIA";
+                categoryIcon = "fa-award";
+                medalBg = "from-amber-400 via-goldCustom to-yellow-600 text-white";
+                message = `¡Felicidades, ${playerName}! Demostraste un nivel excepcional de empoderamiento socioemocional, empatía y perseverancia en situaciones difíciles. Tu actitud es un faro de inspiración.`;
+            } else if (score >= 80) {
+                badgeTitle = "PROMESA DE FORTALEZA EMOCIONAL";
+                categoryIcon = "fa-medal";
+                medalBg = "from-emerald-400 to-teal-700 text-white";
+                message = `¡Gran trabajo, ${playerName}! Tienes una intuición sólida para tomar decisiones resilientes. Continúa practicando el apoyo mutuo y el diálogo positivo.`;
+            } else {
+                badgeTitle = "EXPLORADOR/A EN DESARROLLO";
+                categoryIcon = "fa-seedling";
+                medalBg = "from-sky-400 to-blue-700 text-white";
+                message = `¡Completaste el recorrido, ${playerName}! La resiliencia no nace de un día para otro; se fortalece con cada pequeña decisión de no rendirse. ¡Sigue adelante!`;
+            }
+
+            const resiliencePercentage = Math.min(Math.round((score / 150) * 100), 100);
+
+            gameScreen.innerHTML = `
+                <div class="py-4">
+                    <!-- Diploma Container -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-10 diploma-border shadow-2xl relative overflow-hidden text-center diploma-glow">
+                        <div class="absolute -top-12 -right-12 w-32 h-32 bg-goldCustom/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-aquaCustom/20 rounded-full blur-2xl"></div>
+
+                        <!-- Header Badge -->
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-tr ${medalBg} flex items-center justify-center text-2xl mx-auto shadow-lg mb-3">
+                            <i class="fa-solid ${categoryIcon}"></i>
+                        </div>
+
+                        <span class="text-xs font-black uppercase tracking-widest text-goldDark">DIPLOMA OFICIAL DE RECONOCIMIENTO</span>
+                        
+                        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-brandText mt-2 mb-1">Certificado de Resiliencia</h2>
+                        <p class="text-xs text-brandMuted italic mb-6">Otorgado por completar exitosamente "El Camino de la Resiliencia"</p>
+
+                        <!-- Prominent Player Name -->
+                        <div class="my-6 py-3 px-6 bg-brandBg rounded-2xl border border-gray-200 inline-block max-w-full">
+                            <span class="text-xs font-bold text-brandMuted uppercase block">Otorgado con Orgullo a:</span>
+                            <span class="text-2xl sm:text-4xl font-extrabold text-deepTeal tracking-wide break-words">${playerName}</span>
+                        </div>
+
+                        <!-- Badge Category -->
+                        <div class="mb-6">
+                            <span class="inline-block px-4 py-1.5 rounded-full bg-goldCustom/20 text-goldDark text-xs font-black uppercase tracking-wider">
+                                Rango: ${badgeTitle}
+                            </span>
+                        </div>
+
+                        <!-- Score Cards Breakdown -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto mb-6 text-left">
+                            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-emerald-800 uppercase block">Puntaje Final</span>
+                                    <span class="text-2xl font-black text-emerald-900">${score} PTS</span>
+                                </div>
+                                <i class="fa-solid fa-star text-amber-500 text-2xl"></i>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-teal-800 uppercase block">Índice Resiliente</span>
+                                    <span class="text-2xl font-black text-teal-900">${resiliencePercentage}%</span>
+                                </div>
+                                <i class="fa-solid fa-chart-line text-teal-600 text-2xl"></i>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Message -->
+                        <p class="text-xs sm:text-sm text-brandMuted max-w-lg mx-auto leading-relaxed mb-8">
+                            ${message}
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            <button onclick="resetGame()" class="px-6 py-3.5 bg-deepTeal text-white text-xs font-bold rounded-xl hover:bg-black transition-all shadow-md flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-rotate-right"></i> Volver a Jugar (Mismo Jugador)
+                            </button>
+                            <button onclick="changePlayer()" class="px-6 py-3.5 bg-gray-100 text-brandText text-xs font-bold rounded-xl hover:bg-gray-200 transition-all border border-gray-200 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-user-plus"></i> Cambiar de Jugador
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetGame() {
+            currentStageIndex = 0;
+            score = initialScore;
+            document.getElementById('scoreDisplay').innerText = score + ' PTS';
+            
+            if (!document.getElementById('gameScreen')) {
+                location.reload();
+            } else {
+                renderStage();
+            }
+        }
+
+        function changePlayer() {
+            const overlay = document.getElementById('welcomeOverlay');
+            overlay.style.display = 'flex';
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('playerNameInput').value = '';
+            resetGame();
+        }
+
+        function handleReflection(e) {
+            e.preventDefault();
+            const challenge = document.getElementById('userInputChallenge').value;
+            const positive = document.getElementById('userInputPositive').value;
+
+            const output = document.getElementById('reflectionOutput');
+            const savedText = document.getElementById('savedReflectionText');
+
+            savedText.innerHTML = `<strong>Compromiso de ${playerName}:</strong><br>"Frente al reto de <em>${challenge}</em>, elijo responder diciendo: <strong>'${positive}'</strong>"`;
+            output.classList.remove('hidden');
+
+            document.getElementById('userInputChallenge').value = '';
+            document.getElementById('userInputPositive').value = '';
+        }
+    </script>
+</body>
+</html>
